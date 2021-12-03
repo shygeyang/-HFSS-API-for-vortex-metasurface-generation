@@ -1,41 +1,41 @@
-%CLACULATE_FIELD ´Ë´¦ÏÔÊ¾ÓĞ¹Ø´Ëº¯ÊıµÄÕªÒª
-%   ´Ë´¦ÏÔÊ¾ÏêÏ¸ËµÃ÷         $$$¹¹ÔìÒ»¶¨donutĞÎ×´µÄ³¬²ÄÁÏ  ·ù¶ÈÏàÎ»µ÷¿Ømatlab¼ÆËã³¡
+%CLACULATE_FIELD æ­¤å¤„æ˜¾ç¤ºæœ‰å…³æ­¤å‡½æ•°çš„æ‘˜è¦
+%   æ­¤å¤„æ˜¾ç¤ºè¯¦ç»†è¯´æ˜         $$$æ„é€ ä¸€å®šdonutå½¢çŠ¶çš„è¶…ææ–™è§æ–‡ç« ï¼šâ€œArbitrary Vortex Beam Synthesis With Donut-Shaped Metasurfaceâ€ https://ieeexplore.ieee.org/document/9496111  å¹…åº¦ç›¸ä½è°ƒæ§matlabè®¡ç®—åœº
 clc
 clear all
 close all
-R0=0.06;%½¨Ä£µÄÖĞĞÄ°ë¾¶  µ¥Î»m
-R1=0.06;%½¨Ä£µÄ²¨¶¯°ë¾¶   µ¥Î»m
-d=0.01;  %ÖÜÆÚ´óĞ¡   µ¥Î»m
-rn=(R0+R1)/d;%½¨Ä£°ë¾¶rn¸öÃæ»ıÄÚ½¨Ä£R0+R1¸öÖÜÆÚ
-l=[11];%ÏëÒªµÄOAMÄ£,¿ÉÒÔÎªÊı×é
-mag_l=[1];%ÏëÒªµÄOAMÄ£¶ÔÓ¦µÄÄ£Ê½±ÈÖØ,¿ÉÒÔÎªÊı×é
-% distance,  ¾àÀë   µ¥Î»m
-f=19*10^9; %  ÆµÂÊ  Hz
-% [sample_m],  ²ÉÑùÕóÁĞ´óĞ¡¸öÊı
-% [sp]  ²ÉÑùÖÜÆÚ´óĞ¡  µ¥Î»m
+R0=0.06;%å»ºæ¨¡çš„ä¸­å¿ƒåŠå¾„  å•ä½m
+R1=0.06;%å»ºæ¨¡çš„æ³¢åŠ¨åŠå¾„   å•ä½m
+d=0.01;  %å‘¨æœŸå¤§å°   å•ä½m
+rn=(R0+R1)/d;%å»ºæ¨¡åŠå¾„rnä¸ªé¢ç§¯å†…å»ºæ¨¡R0+R1ä¸ªå‘¨æœŸ
+l=[11];%æƒ³è¦çš„OAMæ¨¡,å¯ä»¥ä¸ºæ•°ç»„
+mag_l=[1];%æƒ³è¦çš„OAMæ¨¡å¯¹åº”çš„æ¨¡å¼æ¯”é‡,å¯ä»¥ä¸ºæ•°ç»„
+% distance,  è·ç¦»   å•ä½m
+f=19*10^9; %  é¢‘ç‡  Hz
+% [sample_m],  é‡‡æ ·é˜µåˆ—å¤§å°ä¸ªæ•°
+% [sp]  é‡‡æ ·å‘¨æœŸå¤§å°  å•ä½m
 fto=[15];%GHz
 
 for fi=1:length(fto)
 
-  f=fto(fi)*10^9; %  ÆµÂÊ  Hz  
-%×¼±¸¹¤×÷
+  f=fto(fi)*10^9; %  é¢‘ç‡  Hz  
+%å‡†å¤‡å·¥ä½œ
 theta=0:2*pi/1000:2*pi;
-a1_total=zeros(1,length(theta));%ĞèÒªµÄ¸´ÊıOAM³¡
+a1_total=zeros(1,length(theta));%éœ€è¦çš„å¤æ•°OAMåœº
 for o=1:length(l)
     a1_total= a1_total+mag_l(o)*exp(-1j*l(o)*theta);
 end
-max_a= max(abs(a1_total));%ĞèÒªµÄ¸´ÊıOAM³¡µÄ×î´óÖµÓÃÓÚ¹éÒ»»¯
+max_a= max(abs(a1_total));%éœ€è¦çš„å¤æ•°OAMåœºçš„æœ€å¤§å€¼ç”¨äºå½’ä¸€åŒ–
 % cin=12-4/max_a.*abs(a1_total)-0.5;
 % cin=12+4/max_a.*abs(a1_total)+0.5;
 % phase=angle(al_total);
 
-N=ceil(rn*2/sqrt(3));%×î´ó½¨Ä£NÈ¦Áù±ßĞÎ
+N=ceil(rn*2/sqrt(3));%æœ€å¤§å»ºæ¨¡Nåœˆå…­è¾¹å½¢
 % N=10;
-% arraynum=6*(1+N)*N/2;%×î¶àµ¥Ôª¸öÊı
+% arraynum=6*(1+N)*N/2;%æœ€å¤šå•å…ƒä¸ªæ•°
 
 k=2*pi*f/(3*10^8);
 
-%Çó½â¾ØÕósampling_m
+%æ±‚è§£çŸ©é˜µsampling_m
 theta_S=0:1:90;
 phi_S=1:1:360;
 
@@ -45,23 +45,23 @@ sampling_matrix=zeros(length(theta_S),length(phi_S));
 for o=1:1:length(theta_S)
     for p=1:1:length(phi_S)
    
-        for n=1:N %È¦Êı
-            for j=1:6 %±ß
-               for i=1:n %¸ö
-                     x=n*d*cos((j-1)*pi/3)-(i-1)*cos((j-2)*pi/3)*d;%%ÃèÊön,j,i,Ê±¿Ìx£¬yÖáµÄ×ø±ê
+        for n=1:N %åœˆæ•°
+            for j=1:6 %è¾¹
+               for i=1:n %ä¸ª
+                     x=n*d*cos((j-1)*pi/3)-(i-1)*cos((j-2)*pi/3)*d;%%æè¿°n,j,i,æ—¶åˆ»xï¼Œyè½´çš„åæ ‡
                      y=n*d*sin((j-1)*pi/3)+(i-1)*sin((j+1)*pi/3)*d;
-                     al=angle(x+1j*y)/pi*180;%%%ÃèÊön,j,i,Ê±¿Ì·½Î»½Çal
+                     al=angle(x+1j*y)/pi*180;%%%æè¿°n,j,i,æ—¶åˆ»æ–¹ä½è§’al
                     if al<0
                               al=al+360;
                     end
-                 a_total=0;%ÀÛ¼ÓĞèÒªµÄ·ù¶ÈºÍÏàÎ»A×Ü
+                 a_total=0;%ç´¯åŠ éœ€è¦çš„å¹…åº¦å’Œç›¸ä½Aæ€»
                     for m=1:length(l)
-                        a_total= a_total+mag_l(m)*exp(-1j*l(m)*al*pi/180);%¸Ã·½Î»½ÇalµÄ¸´ÊıÖµa_total¡£
+                        a_total= a_total+mag_l(m)*exp(-1j*l(m)*al*pi/180);%è¯¥æ–¹ä½è§’alçš„å¤æ•°å€¼a_totalã€‚
                     end
-                a_total=a_total/max_a;%µ÷Õû·ù¶È¹éÒ»»¯
-                a_=angle(a_total);%¸Ãµ¥ÔªĞèÒªµÄÏàÎ»rad
+                a_total=a_total/max_a;%è°ƒæ•´å¹…åº¦å½’ä¸€åŒ–
+                a_=angle(a_total);%è¯¥å•å…ƒéœ€è¦çš„ç›¸ä½rad
 
-                    %ÅĞ¶ÏÊÇ·ñĞèÒª½¨Ä£
+                    %åˆ¤æ–­æ˜¯å¦éœ€è¦å»ºæ¨¡
                      if sqrt(x^2+y^2)<abs(a_total)*R1+R0 && sqrt(x^2+y^2)>R0-abs(a_total)*R1     %abs(a_total)
 
 %                          r=sqrt((x+(o-0.5-sample_m/2)*sp)^2+(y+(sample_m/2-p+0.5)*sp)^2+distance^2);
